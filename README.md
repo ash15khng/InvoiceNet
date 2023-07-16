@@ -1,15 +1,21 @@
 ![InvoiceNet Logo](_images/logo.png)
 
---------------------------------------------------------------------------------
+---
+
+# Follow more detailed installation instructions [here](./install.md).
+
+> Forked from https://github.com/gwwalkerGuard/InvoiceNet
+
+> who forked from https://github.com/naiveHobo/InvoiceNet
 
 Deep neural network to extract intelligent information from invoice documents.
 
 **TL;DR**
 
-* An easy to use UI to view PDF/JPG/PNG invoices and extract information.
-* Train custom models using the Trainer UI on your own dataset.
-* Add or remove invoice fields as per your convenience.
-* Save the extracted information into your system with the click of a button.
+- An easy to use UI to view PDF/JPG/PNG invoices and extract information.
+- Train custom models using the Trainer UI on your own dataset.
+- Add or remove invoice fields as per your convenience.
+- Save the extracted information into your system with the click of a button.
 
 :star: We appreciate your star, it helps!
 
@@ -22,7 +28,7 @@ The InvoiceNet logo was designed by [Sidhant Tibrewal](https://www.linkedin.com/
 
 ---
 
-**DISCLAIMER**: 
+**DISCLAIMER**:
 
 Pre-trained models for some general invoice fields are not available right now but will soon be provided.
 The training GUI and data preparation scripts have been made available.
@@ -83,9 +89,8 @@ Some dependencies also need to be installed separately on Windows 10 before runn
 - [ImageMagick 7.0.10](https://imagemagick.org/script/download.php#windows)
 - [Ghostscript 9.52](https://www.ghostscript.com/download/gsdnld.html)
 
-
-
 ## Data Preparation
+
 The training data must be arranged in a single directory. The invoice documents are expected be PDF files and each invoice is expected to have a corresponding JSON label file with the same name. Your training data should be in the following format:
 
 ```
@@ -100,6 +105,7 @@ train_data/
 ```
 
 The JSON labels should have the following format:
+
 ```
 {
  "vendor_name":"Nike",
@@ -112,11 +118,12 @@ The JSON labels should have the following format:
 
 To begin the data preparation process, click on the "Prepare Data" button in the GUI or follow the instructions below if you're using the CLI.
 
-
 ## Add Your Own Fields
+
 To add your own fields to InvoiceNet, open **invoicenet/\_\_init\_\_.py**.
 
 There are 4 pre-defined field types:
+
 - **FIELD_TYPES["general"]** : General field like names, address, invoice number, etc.
 - **FIELD_TYPES["optional"]** : Optional fields that might not be present in all invoices.
 - **FIELD_TYPES["amount"]** : Fields that represent an amount.
@@ -140,12 +147,11 @@ FIELDS["tax_id"] = FIELD_TYPES["optional"]
 FIELDS["vendor_name"] = FIELD_TYPES["general"]
 ```
 
-
 ## Using the GUI
+
 InvoiceNet provides you with a GUI to train a model on your data and extract information from invoice documents using this trained model
 
 ![Trainer](_images/trainer.png)
-
 
 Run the following command to run the trainer GUI:
 
@@ -159,21 +165,22 @@ Run the following command to run the extractor GUI:
 python extractor.py
 ```
 
-You need to prepare the data for training first. 
+You need to prepare the data for training first.
 You can do so by setting the **Data Folder** field to the directory containing your training data and the clicking the **Prepare Data** button.
 Once the data is prepared, you can start training by clicking the **Start** button.
 
-
 ## Using the CLI
 
-### Training 
+### Training
 
 Prepare the data for training first by running the following command:
+
 ```bash
 python prepare_data.py --data_dir train_data/
 ```
 
 Train InvoiceNet using the following command:
+
 ```bash
 python train.py --field enter-field-here --batch_size 8
 
@@ -184,12 +191,15 @@ python train.py --field total_amount --batch_size 8
 ---
 
 ### Prediction
+
 If you are trying to use different ocr, change the ocr_engine in this function before running predict.py [create_ngrams.py](https://github.com/naiveHobo/InvoiceNet/blob/e883158a690726afd1de5b76b5810287013577c6/invoicenet/common/util.py#L193)
 
 ---
 
 #### Single invoice
+
 To extract a field from a single invoice file, run the following command:
+
 ```bash
 python predict.py --field enter-field-here --invoice path-to-invoice-file
 
@@ -200,6 +210,7 @@ python predict.py --field total_amount --invoice invoices/1.pdf
 ---
 
 #### Multiple invoices
+
 For extracting information using the trained InvoiceNet model, you just need to place the PDF invoice documents in one directory in the following format:
 
 ```
@@ -210,15 +221,18 @@ predict_data/
 ```
 
 Run InvoiceNet using the following command:
+
 ```bash
 python predict.py --field enter-field-here --data_dir predict_data/
 
 # For example, for field 'total_amount'
 python predict.py --field total_amount --data_dir predict_data/
 ```
+
 ---
 
 ## Reference
+
 This implementation is largely based on the work of R. Palm et al, who should be cited if this is used in a scientific publication (or the preceding conference papers):
 
 [1] Palm, Rasmus Berg, Florian Laws, and Ole Winther. **"Attend, Copy, Parse End-to-end information extraction from documents."** 2019 International Conference on Document Analysis and Recognition (ICDAR). IEEE, 2019.
@@ -235,6 +249,7 @@ This implementation is largely based on the work of R. Palm et al, who should be
 ```
 
 ### Note
+
 An implementation of an inferior (also slightly broken) invoice handling system based on the paper **"Cloudscan - A configuration-free invoice analysis system using recurrent neural networks."** is available [here](https://github.com/naiveHobo/InvoiceNet/tree/cloudscan).
 
 [2] Palm, Rasmus Berg, Ole Winther, and Florian Laws. **"Cloudscan - A configuration-free invoice analysis system using recurrent neural networks."** 2017 14th IAPR International Conference on Document Analysis and Recognition (ICDAR). Vol. 1. IEEE, 2017.
