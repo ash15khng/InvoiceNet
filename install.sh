@@ -7,6 +7,7 @@ sudo apt install -y python3-pip python3-virtualenv python3-tk tesseract-ocr popp
 virtualenv env -p python3
 source env/bin/activate
 
+# fix imagemagick policy error
 sudo sed -i 's/^.*policy.*coder.*none.*PDF.*//' /etc/ImageMagick-6/policy.xml
 
 pip install .

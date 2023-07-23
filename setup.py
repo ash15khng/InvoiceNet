@@ -292,5 +292,6 @@ setuptools.setup(name='InvoiceNet',
                      "tqdm==4.59.0",
                      "protobuf==3.20.1",
                      "google-api-python-client",
-                     "google-cloud-vision"
+                     "google-cloud-vision",
+                     "Pillow==9.5.0"
                  ])
